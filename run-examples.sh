@@ -4,10 +4,9 @@ set -e
 echo "Running all JSTL examples..."
 echo ""
 
-# Run all examples
-mvn exec:java \
-    -Dexec.mainClass=com.jstl.examples.AllExamples \
-    -Dexec.args="--enable-preview --enable-native-access=ALL-UNNAMED"
+# Navigate to examples module and run
+cd jstl-examples
+mvn exec:java
 
 echo ""
 echo "✓ All examples completed!"

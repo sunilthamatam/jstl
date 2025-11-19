@@ -6,9 +6,9 @@ echo "Building JSTL Native Library"
 echo "================================"
 echo ""
 
-# Create build directory
-mkdir -p build
-cd build
+# Create build directory in jstl-core
+mkdir -p jstl-core/build
+cd jstl-core/build
 
 # Run CMake
 echo "Running CMake..."
@@ -24,7 +24,7 @@ echo "✓ Native library built successfully!"
 echo "  Library location: $(pwd)/lib/"
 ls -lh lib/
 
-cd ..
+cd ../..
 
 echo ""
 echo "================================"
@@ -33,7 +33,7 @@ echo "================================"
 echo ""
 
 # Build Java code
-mvn clean compile
+mvn install
 
 echo ""
 echo "✓ Build completed successfully!"
@@ -42,6 +42,8 @@ echo "To run examples:"
 echo "  ./run-examples.sh"
 echo ""
 echo "Or run individual examples:"
-echo "  mvn exec:java -Dexec.mainClass=com.jstl.examples.ArrayListExample"
-echo "  mvn exec:java -Dexec.mainClass=com.jstl.examples.HashMapExample"
-echo "  mvn exec:java -Dexec.mainClass=com.jstl.examples.HashSetExample"
+echo "  cd jstl-examples"
+echo "  mvn exec:java                           # Runs all examples"
+echo "  mvn exec:java -Parraylist               # ArrayList example"
+echo "  mvn exec:java -Phashmap                 # HashMap example"
+echo "  mvn exec:java -Phashset                 # HashSet example"

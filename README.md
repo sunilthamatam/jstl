@@ -45,9 +45,11 @@ chmod +x build.sh run-examples.sh
 ./run-examples.sh
 
 # Or run individual examples
-mvn exec:java -Dexec.mainClass=com.jstl.examples.ArrayListExample
-mvn exec:java -Dexec.mainClass=com.jstl.examples.HashMapExample
-mvn exec:java -Dexec.mainClass=com.jstl.examples.HashSetExample
+cd jstl-examples
+mvn exec:java                    # All examples
+mvn exec:java -Parraylist        # ArrayList example
+mvn exec:java -Phashmap          # HashMap example
+mvn exec:java -Phashset          # HashSet example
 ```
 
 ## Usage Examples
@@ -179,11 +181,35 @@ OffHeapHashSet:
 
 *Actual performance will vary based on hardware and data patterns*
 
+## Project Structure
+
+```
+jstl/
+├── jstl-core/                       # Core library module
+│   ├── native/                      # C++ native code
+│   │   ├── include/                 # C API headers
+│   │   └── src/                     # C++ implementations
+│   ├── src/main/java/               # Java library code
+│   │   └── com/jstl/
+│   │       ├── OffHeap*.java        # User-friendly API
+│   │       └── internal/            # Panama FFM bindings
+│   └── src/test/java/               # JUnit tests
+├── jstl-examples/                   # Examples module
+│   └── src/main/java/
+│       └── com/jstl/examples/
+└── pom.xml                          # Parent POM
+```
+
 ## Architecture
 
 ```
 ┌─────────────────────────────────────┐
-│        Java Application             │
+│      jstl-examples Module           │  ← Example applications
+│      (uses jstl-core as dependency) │
+└─────────────────────────────────────┘
+              ↓ (imports)
+┌─────────────────────────────────────┐
+│      jstl-core Module               │
 ├─────────────────────────────────────┤
 │  OffHeap{ArrayList,HashMap,HashSet} │  ← User-friendly API
 ├─────────────────────────────────────┤
@@ -211,14 +237,15 @@ If you prefer to build manually:
 ### Build Native Library
 
 ```bash
+cd jstl-core
 mkdir -p build
 cd build
 cmake ..
 make
-cd ..
+cd ../..
 ```
 
-The shared library will be in `build/lib/`:
+The shared library will be in `jstl-core/build/lib/`:
 - Linux: `libjstl.so`
 - macOS: `libjstl.dylib`
 - Windows: `jstl.dll`
@@ -226,12 +253,19 @@ The shared library will be in `build/lib/`:
 ### Build Java Code
 
 ```bash
-mvn clean compile
+# From root directory - builds all modules
+mvn install
+
+# Or build individual modules
+cd jstl-core && mvn install
+cd jstl-examples && mvn compile
 ```
 
 ### Run Tests
 
 ```bash
+# Run tests for core library
+cd jstl-core
 mvn test
 ```
 

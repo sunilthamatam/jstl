@@ -41,10 +41,12 @@ public class NativeLoader {
 
         // Try to load from build directory
         String[] possiblePaths = {
+            "jstl-core/build/lib/" + libraryFileName,
+            "../jstl-core/build/lib/" + libraryFileName,
             "build/lib/" + libraryFileName,
-            "native/build/lib/" + libraryFileName,
             "../build/lib/" + libraryFileName,
-            "target/native/lib/" + libraryFileName
+            "../../build/lib/" + libraryFileName,
+            "jstl-core/native/build/lib/" + libraryFileName
         };
 
         for (String path : possiblePaths) {
