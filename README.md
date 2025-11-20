@@ -26,10 +26,15 @@ A high-performance Java library that provides off-heap data structures backed by
 - **C++17** compatible compiler (g++, clang, MSVC)
 - **Maven 3.6** or later
 
+**Platforms Supported:** ✅ Linux | ✅ macOS | ✅ Windows
+
+See [CROSS_PLATFORM.md](CROSS_PLATFORM.md) for platform-specific build instructions.
+
 ## Quick Start
 
 ### 1. Build the Project
 
+**Linux / macOS:**
 ```bash
 # Make build script executable
 chmod +x build.sh run-examples.sh
@@ -38,13 +43,25 @@ chmod +x build.sh run-examples.sh
 ./build.sh
 ```
 
+**Windows:**
+```cmd
+build.bat
+```
+
 ### 2. Run Examples
 
+**Linux / macOS:**
 ```bash
-# Run all examples
 ./run-examples.sh
+```
 
-# Or run individual examples
+**Windows:**
+```cmd
+run-examples.bat
+```
+
+**All Platforms (alternative):**
+```bash
 cd jstl-examples
 mvn exec:java                    # All examples
 mvn exec:java -Parraylist        # ArrayList example

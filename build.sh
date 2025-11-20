@@ -17,7 +17,20 @@ cmake ..
 # Build the native library
 echo ""
 echo "Building native library..."
-make -j$(nproc)
+
+# Detect number of CPU cores (cross-platform)
+if command -v nproc > /dev/null 2>&1; then
+    # Linux
+    CORES=$(nproc)
+elif command -v sysctl > /dev/null 2>&1; then
+    # macOS
+    CORES=$(sysctl -n hw.ncpu)
+else
+    # Default fallback
+    CORES=2
+fi
+
+make -j${CORES}
 
 echo ""
 echo "✓ Native library built successfully!"
