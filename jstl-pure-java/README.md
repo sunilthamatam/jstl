@@ -1,24 +1,13 @@
-## JSTL Pure Java - Off-Heap Collections Without C++!
+## JSTL - Off-Heap Collections (No C++ Required!)
 
 **Zero Build Complexity** • **Single JAR Deployment** • **Still Off-Heap**
 
-### The Problem with Native Code
-
-Current approach requires:
-- ❌ C++ compiler installation
-- ❌ CMake build system
-- ❌ Platform-specific compilation
-- ❌ Native library deployment (.so, .dylib, .dll)
-- ❌ Complex debugging (Java + C++)
-
-### The Pure Java Solution
-
-**Just add JAR and run!**
-- ✅ No C++ compilation
-- ✅ No build tools (just Maven)
+### Features
+- ✅ No C++ compilation needed
 - ✅ Single JAR for all platforms
-- ✅ **Still off-heap** (no GC pressure!)
+- ✅ **Zero GC overhead** (all data off-heap!)
 - ✅ Easy debugging (pure Java)
+- ✅ Java 21+ with Panama MemorySegment
 
 ## Quick Start
 
@@ -35,17 +24,25 @@ Current approach requires:
 ### 2. Use It!
 
 ```java
+import com.jstl.*;
+
 // ArrayList - off-heap, no C++!
-try (var list = new PureJavaOffHeapArrayList()) {
+try (var list = new OffHeapArrayList()) {
     list.add(100);
     list.add(200);
     long value = list.get(0);
 }
 
 // HashMap - off-heap, no C++!
-try (var map = new PureJavaOffHeapHashMap()) {
+try (var map = new OffHeapHashMap()) {
     map.put(1, 100);
     long value = map.get(1);
+}
+
+// HashSet - off-heap, no C++!
+try (var set = new OffHeapHashSet()) {
+    set.add(100);
+    boolean exists = set.contains(100);
 }
 ```
 
@@ -164,7 +161,7 @@ That's all! No other dependencies.
 └──────────────────────────────────────┘
                 ↓
 ┌──────────────────────────────────────┐
-│    PureJavaOffHeap Collections       │
+│    OffHeap Collections               │
 │    (Pure Java, no JNI)               │
 └──────────────────────────────────────┘
                 ↓

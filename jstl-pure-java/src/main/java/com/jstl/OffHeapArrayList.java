@@ -20,7 +20,7 @@ import java.lang.foreign.ValueLayout;
  * - ~20-30% slower than C++ STL version
  * - Still MUCH faster than on-heap collections for large data
  */
-public class PureJavaOffHeapArrayList implements AutoCloseable {
+public class OffHeapArrayList implements AutoCloseable {
 
     private static final long INITIAL_CAPACITY = 16;
     private static final long ELEMENT_SIZE = ValueLayout.JAVA_LONG.byteSize();
@@ -34,7 +34,7 @@ public class PureJavaOffHeapArrayList implements AutoCloseable {
     /**
      * Create a new off-heap ArrayList
      */
-    public PureJavaOffHeapArrayList() {
+    public OffHeapArrayList() {
         this.arena = Arena.ofConfined();
         this.capacity = INITIAL_CAPACITY;
         this.size = 0;
@@ -175,9 +175,9 @@ public class PureJavaOffHeapArrayList implements AutoCloseable {
     @Override
     public String toString() {
         if (closed) {
-            return "PureJavaOffHeapArrayList[closed]";
+            return "OffHeapArrayList[closed]";
         }
-        StringBuilder sb = new StringBuilder("PureJavaOffHeapArrayList[");
+        StringBuilder sb = new StringBuilder("OffHeapArrayList[");
         long maxDisplay = Math.min(size, 100);
         for (long i = 0; i < maxDisplay; i++) {
             if (i > 0) sb.append(", ");

@@ -23,7 +23,7 @@ import java.lang.foreign.ValueLayout;
  * Trade-off:
  * - ~20-30% slower than C++ std::unordered_map
  */
-public class PureJavaOffHeapHashMap implements AutoCloseable {
+public class OffHeapHashMap implements AutoCloseable {
 
     private static final int INITIAL_BUCKETS = 16;
     private static final int INITIAL_ENTRY_POOL_SIZE = 256;
@@ -49,7 +49,7 @@ public class PureJavaOffHeapHashMap implements AutoCloseable {
     /**
      * Create a new off-heap HashMap
      */
-    public PureJavaOffHeapHashMap() {
+    public OffHeapHashMap() {
         this.arena = Arena.ofConfined();
         this.numBuckets = INITIAL_BUCKETS;
         this.entryPoolSize = INITIAL_ENTRY_POOL_SIZE;
@@ -312,8 +312,8 @@ public class PureJavaOffHeapHashMap implements AutoCloseable {
     @Override
     public String toString() {
         if (closed) {
-            return "PureJavaOffHeapHashMap[closed]";
+            return "OffHeapHashMap[closed]";
         }
-        return "PureJavaOffHeapHashMap[size=" + size + ", buckets=" + numBuckets + "]";
+        return "OffHeapHashMap[size=" + size + ", buckets=" + numBuckets + "]";
     }
 }
